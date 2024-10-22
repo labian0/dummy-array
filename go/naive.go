@@ -20,7 +20,7 @@ func NewDummyArrayNaive(capacity uint) *DummyArrayNaive {
 }
 
 func (da *DummyArrayNaive) Add(value uint) bool {
-	if value >= da.capacity {
+	if value >= da.capacity || da.Exists(value) {
 		return false
 	}
 	da.set[value] = true
