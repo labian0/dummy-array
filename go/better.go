@@ -20,15 +20,25 @@ func (da *DummyArrayBetter) Add(value uint) bool {
 	if value >= da.capacity || da.Exists(value) {
 		return false
 	}
+	da.values[da.counter] = value
+	da.set[value] = da.counter
+	da.counter++
 
 	return true
 }
 
-func (da *DummyArrayBetter) Remove(value uint) bool { return false }
+func (da *DummyArrayBetter) Remove(value uint) bool {
+	if !da.Exists(value) {
+		return false
+	}
+	da.set[value] = (da.set[value] + 1) % da.capacity // value index in the values slice
+
+	return true
+}
+
 func (da *DummyArrayBetter) Exists(value uint) bool {
 	if value >= da.capacity {
 		return false
 	}
-
-	return false //da.set[value]
+	return da.values[da.set[value]] == value
 }

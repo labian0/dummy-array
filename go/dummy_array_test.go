@@ -40,6 +40,14 @@ func TestDummyArrayNaive(t *testing.T) {
 		t.Fatal(err.Error())
 	}
 }
+func TestDummyArrayBetter(t *testing.T) {
+	err := DummyArrayCheck(func(u uint) DummyArray {
+		return NewDummyArrayBetter(u)
+	})
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+}
 
 func BenchmarkAdd(b *testing.B) {
 
