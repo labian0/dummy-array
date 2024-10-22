@@ -51,25 +51,27 @@ func TestDummyArrayBetter(t *testing.T) {
 
 func doStuffToDummyArray(constructor func(uint) DummyArray) {
 	//initialization
-	da := constructor(1000000)
+	const CAPACITY uint = 1000000
+	da := constructor(CAPACITY)
 	var value uint
+	var i uint
 	//adding
 	value = 0
-	for i := 0; i < 1000000; i++ {
+	for i = 0; i < CAPACITY; i++ {
 		da.Add(value)
-		value = (value + 3) % 1000000
+		value = (value + 3) % CAPACITY
 	}
 	//removing
 	value = 0
-	for i := 0; i < 1000000; i++ {
+	for i = 0; i < CAPACITY; i++ {
 		da.Remove(value)
-		value = (value + 3) % 1000000
+		value = (value + 3) % CAPACITY
 	}
 	//checking exists
 	value = 0
-	for i := 0; i < 1000000; i++ {
+	for i = 0; i < CAPACITY; i++ {
 		da.Exists(value)
-		value = (value + 3) % 1000000
+		value = (value + 3) % CAPACITY
 	}
 }
 
