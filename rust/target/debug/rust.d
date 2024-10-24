@@ -1,0 +1,1 @@
+C:\Users\cleme\Documents\Programmation\Rust\dummy-array\rust\target\debug\rust.exe: C:\Users\cleme\Documents\Programmation\Rust\dummy-array\rust\src\dummy_array.rs C:\Users\cleme\Documents\Programmation\Rust\dummy-array\rust\src\main.rs
