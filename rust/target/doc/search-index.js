@@ -1,0 +1,5 @@
+var searchIndex = new Map(JSON.parse('[\
+["rust",{"t":"CHFNNNNONNNNNONNNNNONNN","n":["dummy_array","main","DummyArrayVec","add","borrow","borrow_mut","clone","counter","exists","fmt","from","get","grow","indexing_tab","into","is_value_valid","new","refresh_counter","remove","storing_tab","try_from","try_into","type_id"],"q":[[0,"rust"],[2,"rust::dummy_array"],[23,"core::fmt"],[24,"core::result"],[25,"core::any"]],"i":[0,0,0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],"f":"`{{}b}`{{{h{df}}j}l}{{{h{c}}}{{h{e}}}{}{}}{{{h{dc}}}{{h{de}}}{}{}}{{{h{f}}}f}`3{{{h{f}}{h{dn}}}A`}{cc{}}{{{h{df}}j}{{Ad{j{h{Ab}}}}}}{{{h{df}}j}b}`{ce{}{}}{jl}{jf}{{{h{df}}}b};`{c{{Ad{e}}}{}{}}0{{{h{c}}}Af{}}","D":"Ah","p":[[1,"unit"],[0,"mut"],[5,"DummyArrayVec",2],[1,"reference"],[1,"i64"],[1,"bool"],[5,"Formatter",23],[8,"Result",23],[1,"str"],[6,"Result",24],[5,"TypeId",25]],"r":[],"b":[],"c":"OjAAAAAAAAA=","e":"OzAAAAEAAAsABgAAAAIABQABAAgAAAAKAAAADgAAABQAAwA="}]\
+]'));
+if (typeof exports !== 'undefined') exports.searchIndex = searchIndex;
+else if (window.initSearch) window.initSearch(searchIndex);
