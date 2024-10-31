@@ -1,4 +1,4 @@
-package main
+package dummyarray
 
 type DummyArray interface {
 	Add(uint) bool
