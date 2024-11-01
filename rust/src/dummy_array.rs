@@ -12,6 +12,7 @@ pub struct DummyArrayVec {
     counter: i64,
 }
 
+/// Dummy array common behaviors. <br/>
 pub trait DummyArray {
     fn exists(&mut self, value: i64) -> bool;
     fn add(&mut self, value: i64) -> Result<bool, &str>;
@@ -150,22 +151,22 @@ impl DummyArray for DummyArrayVec {
 impl DummyArrayVec {
 
     /// Creates a new dummy array with a given capacity. <br/>
-    pub fn new(capacity: i64) -> Result<Self, &'static str> 
+    pub fn new(capacity: usize) -> Result<Self, &'static str> 
     {
-        if !DummyArrayVec::is_value_valid(capacity)
+        if !DummyArrayVec::is_value_valid(capacity as i64)
         {
             return Err("Not a valid capacity. ");
         }
         
-        let indexing_tab: Vec<*mut i64> = Vec::with_capacity(capacity as usize);
-        let storing_tab: Vec<i64> = Vec::with_capacity(capacity as usize);
+        let indexing_tab: Vec<*mut i64> = Vec::with_capacity(capacity);
+        let storing_tab: Vec<i64> = Vec::with_capacity(capacity);
 
         let mut new= Self {
                 indexing_tab,
                 storing_tab,
                 counter: 0,
         };
-        new.grow(capacity as usize);
+        new.grow(capacity);
         
         Ok(new)
     }
@@ -219,7 +220,7 @@ impl DummyArrayVec {
                         {
                             index += 1;
                         }
-                        index
+                        if index < new_capacity {index} else {0}
                     }]).cast_mut();
 
                 self.indexing_tab[index] = new_location;
