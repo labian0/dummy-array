@@ -1,23 +1,17 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import wrapper
-
-CAPACITY = 1000000
-REPETITIONS = 10
-
-rust_impl:wrapper.Library = wrapper.Library("dummyarray_rust.so")
-go_impl = wrapper.Library("./dummyarray_go.so")
+from wrapper import go_impl, rust_impl
 
 # Sample data
 benchmarks = ['Initialize', 'Add', 'Remove', 'Exists']
-valuesGo = [go_impl.benchmark_initialize(CAPACITY,REPETITIONS),
-            go_impl.benchmark_add(CAPACITY,REPETITIONS),
-            go_impl.benchmark_remove(CAPACITY,REPETITIONS),
-            go_impl.benchmark_exists(CAPACITY,REPETITIONS)]  # Values for the first benchmark
-valuesRust = [rust_impl.benchmark_initialize(CAPACITY,REPETITIONS),
-            rust_impl.benchmark_add(CAPACITY,REPETITIONS),
-            rust_impl.benchmark_remove(CAPACITY,REPETITIONS),
-            rust_impl.benchmark_exists(CAPACITY,REPETITIONS)]  # Values for the second benchmark
+valuesGo = [go_impl.benchmark_initialize(),
+            go_impl.benchmark_add(),
+            go_impl.benchmark_remove(),
+            go_impl.benchmark_exists()]  # Values for the first benchmark
+valuesRust = [rust_impl.benchmark_initialize(),
+            rust_impl.benchmark_add(),
+            rust_impl.benchmark_remove(),
+            rust_impl.benchmark_exists()]  # Values for the second benchmark
 
 # Define the positions for the bars
 y_pos = np.arange(len(benchmarks))
