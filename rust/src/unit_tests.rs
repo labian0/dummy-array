@@ -1,7 +1,7 @@
-use crate::dummy_array::DummyArrayVec;
-use crate::dummy_array::DummyArray;
+#[path = "dummy_array.rs"] mod dummy_arrays;
+use dummy_arrays::{DummyArray, DummyArrayVec};
 
-pub fn main(tested_capacity: i64) 
+pub fn run(tested_capacity: i64) 
 {
     let mut my_dummy_array = DummyArrayVec::new(tested_capacity as usize).unwrap();
     print!("\nInitial repr:\n{}", my_dummy_array.repr());

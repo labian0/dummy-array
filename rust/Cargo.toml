@@ -1,11 +1,12 @@
 [package]
-name = "rust"
+name = "dummy_arrays_rs"
 version = "0.1.0"
 edition = "2021"
 
-[dependencies] 
-pyo3 = { version = "0.22.5", features = ["extension-module"] }
-rand = "0.8"
-
-[pylib]
+[lib]
+name = "lib"
 crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = "0.22.0"
+rand = "0.8.5" 

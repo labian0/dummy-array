@@ -1,7 +1,7 @@
+#[path = "dummy_array.rs"] mod dummy_arrays;
 use std::time::{Duration, Instant};
 use rand::Rng;
-use crate::dummy_array::DummyArrayVec;
-use crate::dummy_array::DummyArray;
+use dummy_arrays::{DummyArray, DummyArrayVec};
 
 /// Benchmark structure for the dummy array. <br/>
 /// It refers to the average time (ns) taken to perform a given 
