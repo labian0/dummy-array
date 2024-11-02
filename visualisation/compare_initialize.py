@@ -14,8 +14,8 @@ plt.plot(capacities, valuesRust, label='Rust', color='orange')
 
 # Add labels and title
 plt.xticks(capacities, benchmarks)
-plt.ylabel('Temps (secondes)')
-plt.title('Temps (secondes) d\'initialisation d\'un DummyArray de capacité n')
+plt.ylabel('Temps (ms)')
+plt.title('Temps (ms) d\'initialisation d\'un DummyArray de capacité n')
 plt.legend()
 
 # Show the plot
