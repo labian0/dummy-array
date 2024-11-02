@@ -1,4 +1,4 @@
-use std::{ptr, vec::Vec};
+use std::{ptr, vec::Vec, clone::Clone};
 
 /// Dummy array implementation using vectors. <br/>
 /// <br/>
@@ -18,7 +18,6 @@ pub trait DummyArray {
     fn add(&mut self, value: i64) -> Result<bool, &str>;
     fn remove(&mut self, value: i64) -> Result<bool, &str>;
     fn get(&mut self, value: i64) -> Result<i64, &str>;
-    fn clone(&self) -> Self;
     fn repr(&self) -> String;
     fn is_empty(&self) -> bool;
     fn is_full(&self) -> bool;
@@ -104,16 +103,6 @@ impl DummyArray for DummyArrayVec {
         }
     }
 
-    /// Returns a copy of the dummy array. <br/>
-    fn clone(&self) -> Self 
-    {
-        Self {
-            indexing_tab: self.indexing_tab.clone(),
-            storing_tab: self.storing_tab.clone(),
-            counter: self.counter,
-        }
-    }
-
     /// Returns a string representation of the dummy array. <br/>
     fn repr(&self) -> String
     {
@@ -145,6 +134,18 @@ impl DummyArray for DummyArrayVec {
         self.indexing_tab == other.indexing_tab
         && self.storing_tab == other.storing_tab
         && self.counter == other.counter
+    }
+}
+
+impl Clone for DummyArrayVec {
+    /// Returns a copy of the dummy array. <br/>
+    fn clone(&self) -> Self 
+    {
+        Self {
+            indexing_tab: self.indexing_tab.clone(),
+            storing_tab: self.storing_tab.clone(),
+            counter: self.counter,
+        }
     }
 }
 

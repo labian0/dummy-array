@@ -1,4 +1,5 @@
 use std::time::{Duration, Instant};
+use rand::Rng;
 use crate::dummy_array::DummyArrayVec;
 use crate::dummy_array::DummyArray;
 
@@ -6,18 +7,18 @@ use crate::dummy_array::DummyArray;
 /// It refers to the average time (ns) taken to perform a given 
 /// operation on the dummy array. <br/>
 /// The benchmark is performed on a given capacity and repetition. <br/>
-struct DummyArrayVecBenchmark {
-    capacity: usize,
-    repetition: i64,
-    average_time: Duration,
+pub struct DummyArrayVecBenchmark {
+    pub capacity: usize,
+    pub repetition: i64,
+    pub average_time: Duration,
 }
 
 /// Expected behaviors for the dummy array benchmark. <br/>
-trait Benchmark {
+pub trait Benchmark {
     fn benchmark_initialize(&mut self) -> ();
-    fn benchmark_add(&mut self, value: i64) -> ();
-    fn benchmark_remove(&mut self, value: i64) -> ();
-    fn benchmark_exists(&mut self, value: i64) -> ();
+    fn benchmark_add(&mut self) -> ();
+    fn benchmark_remove(&mut self) -> ();
+    fn benchmark_exists(&mut self) -> ();
 }
 
 impl Benchmark for DummyArrayVecBenchmark {
@@ -27,10 +28,11 @@ impl Benchmark for DummyArrayVecBenchmark {
     {
         let mut total_time = Duration::new(0, 0);
         let mut _dummy_array: DummyArrayVec;
+        let mut start: Instant;
 
         for _ in 0..self.repetition
         {
-            let start = Instant::now();
+            start = Instant::now();
             _dummy_array = DummyArrayVec::new(self.capacity).unwrap();
             total_time += start.elapsed();
         }
@@ -38,15 +40,19 @@ impl Benchmark for DummyArrayVecBenchmark {
     }
 
     /// Calculates the average time taken to add a value to the dummy array.
-    fn benchmark_add(&mut self, value: i64) -> ()
+    fn benchmark_add(&mut self) -> ()
     {
         let mut total_time = Duration::new(0, 0);
         let mut dummy_array = DummyArrayVec::new(self.capacity).unwrap();
+        let mut value: i64;
+        let mut rng: rand::rngs::ThreadRng = rand::thread_rng();
+        let mut warning: Result<bool, &str>;
+        let mut start: Instant;
 
         for _ in 0..self.repetition
         {
-            let warning: Result<bool, &str>;
-            let start = Instant::now();
+            value = rng.gen_range(0..self.capacity as i64);
+            start = Instant::now();
             warning = dummy_array.add(value);
             total_time += start.elapsed();
 
@@ -59,15 +65,20 @@ impl Benchmark for DummyArrayVecBenchmark {
     }
 
     /// Calculates the average time taken to remove a value from the dummy array.
-    fn benchmark_remove(&mut self, value: i64) -> ()
+    fn benchmark_remove(&mut self) -> ()
     {
         let mut total_time = Duration::new(0, 0);
         let mut dummy_array = DummyArrayVec::new(self.capacity).unwrap();
+        let mut value: i64;
+        let mut rng: rand::rngs::ThreadRng = rand::thread_rng();
+        let mut start: Instant;
+        
+        self.populate(&mut dummy_array);
 
         for _ in 0..self.repetition
         {
-            dummy_array.add(value).unwrap();
-            let start = Instant::now();
+            value = rng.gen_range(0..self.capacity as i64);
+            start = Instant::now();
             dummy_array.remove(value).unwrap();
             total_time += start.elapsed();
         }
@@ -75,14 +86,20 @@ impl Benchmark for DummyArrayVecBenchmark {
     }
 
     /// Calculates the average time taken to search for a value in the dummy array.
-    fn benchmark_exists(&mut self, value: i64) -> ()
+    fn benchmark_exists(&mut self) -> ()
     {
+        let mut dummy_array = DummyArrayVec::new(self.capacity).unwrap();
         let mut total_time = Duration::new(0, 0);
+        let mut value: i64;
+        let mut rng: rand::rngs::ThreadRng = rand::thread_rng();
+        let mut start: Instant;
+
+        self.populate(&mut dummy_array);
+
         for _ in 0..self.repetition
         {
-            let mut dummy_array = DummyArrayVec::new(self.capacity).unwrap();
-            dummy_array.add(value).unwrap();
-            let start = Instant::now();
+            value = rng.gen_range(0..i64::MAX);
+            start = Instant::now();
             dummy_array.exists(value);
             total_time += start.elapsed();
         }
@@ -92,15 +109,16 @@ impl Benchmark for DummyArrayVecBenchmark {
 
 impl DummyArrayVecBenchmark {
     /// Calculates the average time taken to clone the dummy array.
-    fn benchmark_clone(&mut self) -> ()
+    pub fn benchmark_clone(&mut self) -> ()
     {
         let mut total_time = Duration::new(0, 0);
         let mut _dummy_array_clone: DummyArrayVec;
         let dummy_array: DummyArrayVec = DummyArrayVec::new(self.capacity).unwrap();
+        let mut  start: Instant;
 
         for _ in 0..self.repetition
         {
-            let start = Instant::now();
+            start = Instant::now();
             _dummy_array_clone = dummy_array.clone();
             total_time += start.elapsed();
         }
@@ -109,83 +127,29 @@ impl DummyArrayVecBenchmark {
     }
 
     /// Calculates the average time taken to resize the dummy array.
-    fn benchmark_resize(&mut self) -> ()
+    pub fn benchmark_resize(&mut self) -> ()
     {
         let mut total_time = Duration::new(0, 0);
         let mut dummy_array: DummyArrayVec = DummyArrayVec::new(0).unwrap();
+        let mut  start: Instant;
 
         for x in 0..self.repetition
         {
-            let start = Instant::now();
-            dummy_array.add(x);
+            start = Instant::now();
+            dummy_array.add(x).unwrap();
             total_time += start.elapsed();  
         }
         self.average_time = total_time / self.repetition as u32;
     }
-}
 
-pub fn benchmark_initialize(capacity: usize, repetition: i64) -> u128
-{
-    let mut benchmark = DummyArrayVecBenchmark {
-        capacity,
-        repetition,
-        average_time: Duration::new(0, 0)
-    };
-    benchmark.benchmark_initialize();
-    benchmark.average_time.as_nanos()
-}
+    /// Populates the dummy array with random values.
+    pub fn populate(&mut self, dummy_array: &mut DummyArrayVec) -> ()
+    {
+        let mut rng: rand::rngs::ThreadRng = rand::thread_rng();
 
-pub fn benchmark_add(capacity: usize, repetition: i64) -> u128
-{
-    let mut benchmark = DummyArrayVecBenchmark {
-        capacity,
-        repetition,
-        average_time: Duration::new(0, 0)
-    };
-    benchmark.benchmark_add(5);
-    benchmark.average_time.as_nanos()
-}
-
-pub fn benchmark_remove(capacity: usize, repetition: i64) -> u128
-{
-    let mut benchmark = DummyArrayVecBenchmark {
-        capacity,
-        repetition,
-        average_time: Duration::new(0, 0)
-    };
-    benchmark.benchmark_remove(2);
-    benchmark.average_time.as_nanos()
-}
-
-pub fn benchmark_exists(capacity: usize, repetition: i64) -> u128
-{
-    let mut benchmark = DummyArrayVecBenchmark {
-        capacity,
-        repetition,
-        average_time: Duration::new(0, 0)
-    };
-    benchmark.benchmark_exists(5);
-    benchmark.average_time.as_nanos()
-}
-
-pub fn benchmark_clone(capacity: usize, repetition: i64) -> u128
-{
-    let mut benchmark = DummyArrayVecBenchmark {
-        capacity,
-        repetition,
-        average_time: Duration::new(0, 0)
-    };
-    benchmark.benchmark_clone();
-    benchmark.average_time.as_nanos()
-}
-
-pub fn benchmark_resize(capacity: usize, repetition: i64) -> u128
-{
-    let mut benchmark = DummyArrayVecBenchmark {
-        capacity,
-        repetition,
-        average_time: Duration::new(0, 0)
-    };
-    benchmark.benchmark_resize();
-    benchmark.average_time.as_nanos()
+        for _ in 0..self.capacity
+        {
+            dummy_array.add(rng.gen_range(0..self.capacity as i64)).unwrap();
+        }
+    }
 }
