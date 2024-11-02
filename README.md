@@ -1,10 +1,11 @@
 # Dummy arrays
 
 ## General conception and implementation
-This project aim to implements _an associative data structure_, structured around three entities, as follows :
+This little project aims to implement _an associative data structure_, called Dummy-array.<br/>
+It would works around three entities, as follows :
 - one sub data structure _for indexing_.
 - another _to store values_.
-- a counter _to keep track of the next index to write onto_.
+- and a counter _to keep track of the next index to write onto_.
 
 This data structure must implements three methods :
 - **`exists(int value)`** -> return True if the given value is already stored; else False.
@@ -12,4 +13,4 @@ This data structure must implements three methods :
 - **`remove(int value)`** -> if the given value is already stored, delete it and return True; else return False 
 
 ## Benchmark
-*coming soon*
+We so choose to implement a Dummy-array in Go and Rust, then compared the results between the two languages during the benchmark.
