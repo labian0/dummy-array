@@ -3,7 +3,7 @@ use crate::dummy_array::DummyArray;
 
 pub fn main(tested_capacity: i64) 
 {
-    let mut my_dummy_array = DummyArrayVec::new(tested_capacity).unwrap();
+    let mut my_dummy_array = DummyArrayVec::new(tested_capacity as usize).unwrap();
     print!("\nInitial repr:\n{}", my_dummy_array.repr());
 
     // // clone the array
@@ -46,4 +46,6 @@ pub fn main(tested_capacity: i64)
 
     // search for the value that was removed
     assert_eq!(false, my_dummy_array.exists(1), "Value 1 should not exist. ");
+
+    println!("\nUnit tests passed ! \n");
 }
