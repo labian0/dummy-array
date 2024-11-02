@@ -21,7 +21,7 @@ plt.bar(y_pos + 0.2, valuesRust, width=0.4, label='Rust', color='orange')
 
 # Add labels and title
 plt.xticks(y_pos, benchmarks)
-plt.ylabel('Temps (secondes)')
+plt.ylabel('Temps (ms)')
 plt.title('Comparaison des benchmarks de DummyArray en Go et en Rust')
 plt.legend()
 
