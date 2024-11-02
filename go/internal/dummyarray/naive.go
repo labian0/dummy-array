@@ -1,4 +1,4 @@
-package main
+package dummyarray
 
 /*
 DummyArrayNaive: utilise un seul set (map[uint]bool)

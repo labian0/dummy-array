@@ -1,4 +1,4 @@
-package main
+package dummyarray
 
 type DummyArrayBetter struct {
 	set      []uint

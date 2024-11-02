@@ -3,10 +3,12 @@ package main
 import (
 	"fmt"
 	"testing"
+
+	"github.com/labian0/dummy-array/go/internal/dummyarray"
 )
 
 // check for a DummyArray of capacity 10
-func DummyArrayCheck(constructor func(uint) DummyArray) error {
+func DummyArrayCheck(constructor func(uint) dummyarray.DummyArray) error {
 	da := constructor(10)
 	if da.Add(128) {
 		return fmt.Errorf("nombre trop grand entré avec succès dans le DA")
@@ -33,23 +35,23 @@ func DummyArrayCheck(constructor func(uint) DummyArray) error {
 }
 
 func TestDummyArrayNaive(t *testing.T) {
-	err := DummyArrayCheck(func(u uint) DummyArray {
-		return NewDummyArrayNaive(u)
+	err := DummyArrayCheck(func(u uint) dummyarray.DummyArray {
+		return dummyarray.NewDummyArrayNaive(u)
 	})
 	if err != nil {
 		t.Fatal(err.Error())
 	}
 }
 func TestDummyArrayBetter(t *testing.T) {
-	err := DummyArrayCheck(func(u uint) DummyArray {
-		return NewDummyArrayBetter(u)
+	err := DummyArrayCheck(func(u uint) dummyarray.DummyArray {
+		return dummyarray.NewDummyArrayBetter(u)
 	})
 	if err != nil {
 		t.Fatal(err.Error())
 	}
 }
 
-func doStuffToDummyArray(constructor func(uint) DummyArray) {
+func doStuffToDummyArray(constructor func(uint) dummyarray.DummyArray) {
 	//initialization
 	const CAPACITY uint = 1000000
 	da := constructor(CAPACITY)
@@ -77,11 +79,11 @@ func doStuffToDummyArray(constructor func(uint) DummyArray) {
 
 func BenchmarkDummyArrayNaive(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		doStuffToDummyArray(func(u uint) DummyArray { return NewDummyArrayNaive(u) })
+		doStuffToDummyArray(func(u uint) dummyarray.DummyArray { return dummyarray.NewDummyArrayNaive(u) })
 	}
 }
 func BenchmarkDummyArrayBetter(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		doStuffToDummyArray(func(u uint) DummyArray { return NewDummyArrayBetter(u) })
+		doStuffToDummyArray(func(u uint) dummyarray.DummyArray { return dummyarray.NewDummyArrayBetter(u) })
 	}
 }
