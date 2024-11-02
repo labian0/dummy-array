@@ -16,22 +16,22 @@ class Library:
             raise Exception("Needed library functions weren't properly exported/don't exist. Double-check the spelling of exported function signatures")
             
     def benchmark_initialize(self, capacity:int=CAPACITY, repetitions:int=REPETITIONS) -> float:
-        """get the average execution time (in nanoseconds) for ONE DummyArray initialization of size <capacity>
+        """get the average execution time (in milliseconds) for ONE DummyArray initialization of size <capacity>
         averaged over <repetitions> repetitions"""
         return self.lib.benchmark_initialize(capacity,repetitions)
 
     def benchmark_add(self, capacity:int=CAPACITY, repetitions:int=REPETITIONS) -> float:
-        """get the average execution time (in nanoseconds) for adding <capacity> values in ONE DummyArray of size <capacity>
+        """get the average execution time (in milliseconds) for adding <capacity> values in ONE DummyArray of size <capacity>
         averaged over <repetitions> repetitions"""
         return self.lib.benchmark_add(capacity,repetitions)
 
     def benchmark_remove(self, capacity:int=CAPACITY, repetitions:int=REPETITIONS) -> float:
-        """get the average execution time (in nanoseconds) for removing <capacity> values in ONE DummyArray of size <capacity>
+        """get the average execution time (in milliseconds) for removing <capacity> values in ONE DummyArray of size <capacity>
         averaged over <repetitions> repetitions"""
         return self.lib.benchmark_remove(capacity,repetitions)
 
     def benchmark_exists(self, capacity:int=CAPACITY, repetitions:int=REPETITIONS) -> float:
-        """get the average execution time (in nanoseconds) for checking the existence of <capacity> values in ONE DummyArray of size <capacity>
+        """get the average execution time (in milliseconds) for checking the existence of <capacity> values in ONE DummyArray of size <capacity>
         averaged over <repetitions> repetitions"""
         return self.lib.benchmark_exists(capacity,repetitions)
 
