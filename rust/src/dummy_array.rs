@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 use std::{ptr, vec::Vec, clone::Clone};
 
 /// Dummy array implementation using vectors. <br/>
