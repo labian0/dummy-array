@@ -2,3 +2,4 @@ go.mod
 go.sum
 */__pycache__/*
 */venv/*
+*.so

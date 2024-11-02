@@ -1,1 +1,1 @@
-go build -buildmode=c-shared -o lib.so ./go;rm lib.h
+go build -buildmode=c-shared -o dummyarray_go.so ./go/cmd/main;rm dummyarray_go.h
