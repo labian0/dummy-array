@@ -3,7 +3,7 @@
 use dummy_arrays::{DummyArray, DummyArrayVec};
 
 #[test]
-pub fn run_tests() 
+pub fn run_tests() -> ()
 {
     let tested_capacity = 100;
 
@@ -58,25 +58,25 @@ pub fn run_tests()
 fn run_benchmark()
 {
     let capacity: usize = 1000; 
-    let repetition: i64 = 1000;
+    let repetition: i64 = 100;
 
     let benchmark = lib::benchmark_initialize(capacity, repetition);
-    print!("Initialization benchmark: {} ns\n", benchmark);
+    print!("Initialization benchmark: {} ms\n", benchmark);
 
     let benchmark = lib::benchmark_add(capacity, repetition);
-    print!("Add benchmark: {} ns\n", benchmark);
+    print!("Add benchmark: {} ms\n", benchmark);
 
     let benchmark = lib::benchmark_remove(capacity, repetition);
-    print!("Remove benchmark: {} ns\n", benchmark);
+    print!("Remove benchmark: {} ms\n", benchmark);
 
     let benchmark = lib::benchmark_exists(capacity, repetition);
-    print!("Exists benchmark: {} ns\n", benchmark);
-
-    let benchmark = lib::benchmark_clone(capacity, repetition);
-    print!("Clone benchmark: {} ns\n", benchmark);
+    print!("Exists benchmark: {} ms\n", benchmark);
 
     let benchmark = lib::benchmark_resize(capacity, repetition);
-    print!("Resize benchmark: {} ns\n", benchmark);
+    print!("Resize benchmark: {} ms\n", benchmark);
+
+    let benchmark = lib::benchmark_clone(capacity, repetition);
+    print!("Clone benchmark: {} ms\n", benchmark);
 
     println!("\nBenchmarks passed ! \n");
 }

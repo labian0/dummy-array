@@ -1,5 +1,5 @@
 #[path = "benchmark.rs"] mod benchmark;
-use std::{ffi::c_ulonglong, time::Duration};
+use std::{ffi::c_double, time::Duration};
 use benchmark::{Benchmark, DummyArrayVecBenchmark};
 
 #[no_mangle]
@@ -8,7 +8,7 @@ use benchmark::{Benchmark, DummyArrayVecBenchmark};
 /// #Params
 /// - capacity: usize -> dummy-array size.
 /// - repetition: i64 -> times the operation is processed (precision of the output).
-pub extern "C" fn benchmark_initialize(capacity: usize, repetition: i64) -> c_ulonglong
+pub extern "C" fn benchmark_initialize(capacity: usize, repetition: i64) -> c_double
 {
     let mut benchmark = DummyArrayVecBenchmark {
         capacity,
@@ -16,7 +16,7 @@ pub extern "C" fn benchmark_initialize(capacity: usize, repetition: i64) -> c_ul
         average_time: Duration::new(0, 0)
     };
     benchmark.benchmark_initialize();
-    benchmark.average_time.as_nanos() as c_ulonglong
+    (benchmark.average_time.as_nanos() as f64)/(1000000.000000 as f64) as c_double
 }
 
 #[no_mangle]
@@ -25,7 +25,7 @@ pub extern "C" fn benchmark_initialize(capacity: usize, repetition: i64) -> c_ul
 /// #Params
 /// - capacity: usize -> dummy-array size.
 /// - repetition: i64 -> times the operation is processed (precision of the output).
-pub extern "C" fn benchmark_add(capacity: usize, repetition: i64) -> c_ulonglong
+pub extern "C" fn benchmark_add(capacity: usize, repetition: i64) -> c_double
 {
     let mut benchmark = DummyArrayVecBenchmark {
         capacity,
@@ -33,7 +33,7 @@ pub extern "C" fn benchmark_add(capacity: usize, repetition: i64) -> c_ulonglong
         average_time: Duration::new(0, 0)
     };
     benchmark.benchmark_add();
-    benchmark.average_time.as_nanos() as c_ulonglong
+    (benchmark.average_time.as_nanos() as f64)/(1000000.000000 as f64) as c_double
 }
 
 #[no_mangle]
@@ -42,7 +42,7 @@ pub extern "C" fn benchmark_add(capacity: usize, repetition: i64) -> c_ulonglong
 /// #Params
 /// - capacity: usize -> dummy-array size.
 /// - repetition: i64 -> times the operation is processed (precision of the output).
-pub extern "C"  fn benchmark_remove(capacity: usize, repetition: i64) -> c_ulonglong
+pub extern "C"  fn benchmark_remove(capacity: usize, repetition: i64) -> c_double
 {
     let mut benchmark = DummyArrayVecBenchmark {
         capacity,
@@ -50,7 +50,7 @@ pub extern "C"  fn benchmark_remove(capacity: usize, repetition: i64) -> c_ulong
         average_time: Duration::new(0, 0)
     };
     benchmark.benchmark_remove();
-    benchmark.average_time.as_nanos() as c_ulonglong
+    (benchmark.average_time.as_nanos() as f64)/(1000000.000000 as f64) as c_double
 }
 
 #[no_mangle]
@@ -59,7 +59,7 @@ pub extern "C"  fn benchmark_remove(capacity: usize, repetition: i64) -> c_ulong
 /// #Params
 /// - capacity: usize -> dummy-array size.
 /// - repetition: i64 -> times the operation is processed (precision of the output).
-pub extern "C"  fn benchmark_exists(capacity: usize, repetition: i64) -> c_ulonglong
+pub extern "C"  fn benchmark_exists(capacity: usize, repetition: i64) -> c_double
 {
     let mut benchmark = DummyArrayVecBenchmark {
         capacity,
@@ -67,7 +67,7 @@ pub extern "C"  fn benchmark_exists(capacity: usize, repetition: i64) -> c_ulong
         average_time: Duration::new(0, 0)
     };
     benchmark.benchmark_exists();
-    benchmark.average_time.as_nanos() as c_ulonglong
+    (benchmark.average_time.as_nanos() as f64)/(1000000.000000 as f64) as c_double
 }
 
 #[no_mangle]
@@ -76,7 +76,7 @@ pub extern "C"  fn benchmark_exists(capacity: usize, repetition: i64) -> c_ulong
 /// #Params
 /// - capacity: usize -> dummy-array size.
 /// - repetition: i64 -> times the operation is processed (precision of the output).
-pub extern "C"  fn benchmark_clone(capacity: usize, repetition: i64) -> c_ulonglong
+pub extern "C"  fn benchmark_clone(capacity: usize, repetition: i64) -> c_double
 {
     let mut benchmark = DummyArrayVecBenchmark {
         capacity,
@@ -84,7 +84,7 @@ pub extern "C"  fn benchmark_clone(capacity: usize, repetition: i64) -> c_ulongl
         average_time: Duration::new(0, 0)
     };
     benchmark.benchmark_clone();
-    benchmark.average_time.as_nanos() as c_ulonglong
+    (benchmark.average_time.as_nanos() as f64)/(1000000.000000 as f64) as c_double
 }
 
 #[no_mangle]
@@ -93,7 +93,7 @@ pub extern "C"  fn benchmark_clone(capacity: usize, repetition: i64) -> c_ulongl
 /// #Params
 /// - capacity: usize -> dummy-array size.
 /// - repetition: i64 -> times the operation is processed (precision of the output).
-pub extern "C"  fn benchmark_resize(capacity: usize, repetition: i64) -> c_ulonglong
+pub extern "C"  fn benchmark_resize(capacity: usize, repetition: i64) -> c_double
 {
     let mut benchmark = DummyArrayVecBenchmark {
         capacity,
@@ -101,5 +101,5 @@ pub extern "C"  fn benchmark_resize(capacity: usize, repetition: i64) -> c_ulong
         average_time: Duration::new(0, 0)
     };
     benchmark.benchmark_resize();
-    benchmark.average_time.as_nanos() as c_ulonglong
+    (benchmark.average_time.as_nanos() as f64)/(1000000.000000 as f64) as c_double
 }
