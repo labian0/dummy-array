@@ -22,10 +22,10 @@ This data structure must implements three methods :
 - **`add(int value)`** -> if the given values is not already stored, insert it and return True; else return False.
 - **`remove(int value)`** -> if the given value is already stored, delete it and return True; else return False.
 
-For example, if the pointer at index 3 doese not point to a slot containing 3, it means the value isn't stored in the dummy-array.
-To mark a slot as writtable in the storing sub data structure, it is field with the lenght of the dummy-array. So if we want to 
-add a value we therefore need to search for the first slot marked thus. And remove a value is as simple as write the lenght in the 
-concerned slot.
+For example, if the pointer at _index 3 does not point to a slot containing 3_, **it means the value isn't stored** in the dummy-array.
+To mark a slot as _writtable in the storing sub data structure_, it is **field with the lenght of the dummy-array**. So if we want to 
+add a value we therefore need to search for _the first slot marked thus_. And remove a value is as simple as _write the lenght in the 
+concerned slot_.
 Every operation, execpt the initialization, should be process from the indexing sub data structure, by dereferencing.
 
 ## Download and setup 🚂 
@@ -37,7 +37,14 @@ If you'd like to try it out for yourself, we've set up a _ready-to-use_ **Qemu**
 To import a
 *instructions sur l'import d'une vm qemu*
 
-*instructions sur les .sh à lancer*
+Once you launched the VVM, use the following infos **to login** : **`login: benchmaker`** and **`passwrd: plop`**.</br>
+Then you can just **run the setup script** by typing the following command : **`bash setup.sh`**.<br/>
+Taadaa, you're **ready to explore **our dummy-array project ! <br/>
+<br/>
+You can run a benchmark within the python virtual environnement in the **`visualization`** directory; or compile and test yourself our 
+dummy-array implementations from the directories **`go`** and **`rust`**.<br/>
+<br/>
+<ins>NB</ins>: to compile one or the other, you can use the respectives building scripts in the **`scripts`** directory.
 
 ## Benchmark 📊
 We so choose to implement a Dummy-array in Go and Rust, then compared the results between the two languages during the benchmark.
