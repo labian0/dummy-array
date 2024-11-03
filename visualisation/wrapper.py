@@ -35,8 +35,8 @@ class Library:
         averaged over <repetitions> repetitions"""
         return self.lib.benchmark_exists(capacity,repetitions)
 
-go_impl = Library("./dummyarray_go.so")
-rust_impl = Library("./dummyarray_rust.so")
+go_impl = Library("../shared_libraries/dummyarray_go.so")
+rust_impl = Library("../shared_libraries/dummyarray_rust.so")
 
 
 def main():
