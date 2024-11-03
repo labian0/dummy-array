@@ -13,6 +13,6 @@ cd ..
 # build go and rust projects
 mkdir shared_libraries
 cd ./scripts
-./build_go.sh
-./build_rust.sh
+bash ./build_go.sh
+bash ./build_rust.sh
 cd ..
