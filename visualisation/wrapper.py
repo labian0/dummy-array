@@ -37,3 +37,12 @@ class Library:
 
 go_impl = Library("./dummyarray_go.so")
 rust_impl = Library("./dummyarray_rust.so")
+
+
+def main():
+    #mesurer benchmarks ici
+
+    print(f"temps (ms) d'ajout de valeurs pour un dummy array de capacité 100 000: {go_impl.benchmark_add(capacity=100000, repetitions=REPETITIONS)} (go), {rust_impl.benchmark_add(capacity=100000, repetitions=REPETITIONS)} (rust)")
+
+if __name__ == "__main__":
+    main()
