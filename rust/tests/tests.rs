@@ -57,8 +57,8 @@ pub fn run_tests() -> ()
 #[test]
 fn run_benchmark()
 {
-    let capacity: usize = 1000; 
-    let repetition: i64 = 100;
+    let capacity: usize = 100000; 
+    let repetition: i64 = 1;
 
     let benchmark = lib::benchmark_initialize(capacity, repetition);
     print!("Initialization benchmark: {} ms\n", benchmark);

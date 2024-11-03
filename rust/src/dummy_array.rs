@@ -20,7 +20,6 @@ pub trait DummyArray {
     fn remove(&mut self, value: i64) -> Result<bool, &str>;
     fn get(&mut self, value: i64) -> Result<i64, &str>;
     fn repr(&self) -> String;
-    fn is_empty(&self) -> bool;
     fn is_full(&self) -> bool;
     fn partial_eq(&self, other: &Self) -> bool;
 }
@@ -30,12 +29,6 @@ impl DummyArray for DummyArrayVec {
     /// Returns true if the value is found, false otherwise. <br/>
     fn exists(&mut self, value: i64) -> bool 
     {
-        if !DummyArrayVec::is_value_valid(value) 
-            || value >= self.indexing_tab.len() as i64
-            || self.is_empty()
-        {
-            return false;
-        }
         let search_result = self.indexing_tab.get(value as usize);
         return if search_result.is_none() {false} else { unsafe{ **search_result.unwrap() == value } };
     }
@@ -44,6 +37,8 @@ impl DummyArray for DummyArrayVec {
     /// Returns true if the value was added, false otherwise. <br/>
     fn add(&mut self, value: i64) -> Result<bool, &str> 
     {
+        self.refresh_counter();
+
         if self.exists(value)
         {
             return Err("Value already exists. ");
@@ -66,7 +61,6 @@ impl DummyArray for DummyArrayVec {
         {
             *self.indexing_tab[value as usize] = value;
         }
-        self.refresh_counter();
 
         Ok(true)
     }
@@ -75,13 +69,14 @@ impl DummyArray for DummyArrayVec {
     /// Returns true if the value was removed, false otherwise. <br/>
     fn remove(&mut self, value: i64) -> Result<bool, &str> 
     {
+        self.refresh_counter();
+
         if !self.exists(value) 
         {
             return Err("Value not found. ");
         }
 
         unsafe { *self.indexing_tab[value as usize] = self.indexing_tab.len() as i64; }
-        self.refresh_counter();
 
         Ok(true)
     }
@@ -112,24 +107,6 @@ impl DummyArray for DummyArrayVec {
         repr.push_str(&format!("storing_tab: {:?}\n", self.storing_tab));
         repr.push_str(&format!("counter: {}\n------\n", self.counter));
         repr
-    }
-
-    /// Returns true if the dummy array is empty, false otherwise. <br/>
-    /// <ins>NB</ins>: the dummy array is empty if the counter is equal to 0 (no stored value). <br/>
-    fn is_empty(&self) -> bool
-    {
-        let mut empty: bool = true;
-        let mut index: usize = 0;
-
-        while index < self.indexing_tab.len() && empty
-        {
-            unsafe 
-            {
-                empty = *self.indexing_tab[index as usize] == self.indexing_tab.len() as i64;
-                index += 1;
-            }
-        }
-        empty
     }
 
     /// Returns true if the dummy array is full, false otherwise. <br/>
@@ -274,6 +251,6 @@ impl DummyArrayVec {
     /// Returns true if the value is valid, false otherwise. <br/>
     fn is_value_valid(value: i64) -> bool 
     {
-        value >= 0 && value < i64::MAX 
+        value >= 0 && value <= i64::MAX 
     }
 }

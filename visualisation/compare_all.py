@@ -26,5 +26,5 @@ plt.title('Comparaison des benchmarks de DummyArray en Go et en Rust')
 plt.legend()
 
 # Show the plot
-plt.savefig("plot.png")
+plt.savefig("visualisation/graphs/plot.png")
 

@@ -1,5 +1,5 @@
 #[path = "dummy_array.rs"] mod dummy_arrays;
-use std::time::{Duration, Instant};
+use std::time::{Duration, SystemTime};
 use rand::Rng;
 use dummy_arrays::{DummyArray, DummyArrayVec};
 
@@ -28,13 +28,13 @@ impl Benchmark for DummyArrayVecBenchmark {
     {
         let mut total_time = Duration::new(0, 0);
         let mut _dummy_array: DummyArrayVec;
-        let mut start: Instant;
+        let mut start: SystemTime;
 
         for _ in 0..self.repetition
         {
-            start = Instant::now();
+            start = SystemTime::now();
             _dummy_array = DummyArrayVec::new(self.capacity).unwrap();
-            total_time += start.elapsed();
+            total_time += start.elapsed().unwrap();
         }
         self.average_time = total_time / self.repetition as u32;
     }
@@ -47,17 +47,18 @@ impl Benchmark for DummyArrayVecBenchmark {
         let mut value: i64;
         let mut rng: rand::rngs::ThreadRng = rand::thread_rng();
         let mut warning: Result<bool, &str>;
-        let mut start: Instant;
+        let mut start: SystemTime;
 
         for _ in 0..self.repetition
         {
             value = rng.gen_range(0..self.capacity as i64);
-            start = Instant::now();
+            start = SystemTime::now();
             warning = dummy_array.add(value);
-            total_time += start.elapsed();
+            total_time += start.elapsed().unwrap();
 
             if warning.is_err() && warning.unwrap_err() == "The dummy array is full. "
             {
+                total_time -= start.elapsed().unwrap();
                 dummy_array = DummyArrayVec::new(self.capacity).unwrap();
             }
         }
@@ -71,19 +72,15 @@ impl Benchmark for DummyArrayVecBenchmark {
         let mut dummy_array = DummyArrayVec::new(self.capacity).unwrap();
         let mut rng: rand::rngs::ThreadRng = rand::thread_rng();
         let mut value: i64 = rng.gen_range(0..self.capacity as i64) as i64;
-        let mut start: Instant;
+        let mut start: SystemTime;
         
         self.populate(&mut dummy_array);
 
         for _ in 0..self.repetition
-        {   
-            while !dummy_array.exists(value) 
-            {
-                value = rng.gen_range(0..self.capacity as i64) as i64;
-            }
-            start = Instant::now();
+        {
+            start = SystemTime::now();
             dummy_array.remove(value).unwrap();
-            total_time += start.elapsed();
+            total_time += start.elapsed().unwrap();
         }
         self.average_time = total_time / self.repetition as u32;
     }
@@ -95,16 +92,16 @@ impl Benchmark for DummyArrayVecBenchmark {
         let mut total_time = Duration::new(0, 0);
         let mut value: i64;
         let mut rng: rand::rngs::ThreadRng = rand::thread_rng();
-        let mut start: Instant;
+        let mut start: SystemTime;
 
         self.populate(&mut dummy_array);
 
         for _ in 0..self.repetition
         {
             value = rng.gen_range(0..i64::MAX);
-            start = Instant::now();
+            start = SystemTime::now();
             dummy_array.exists(value);
-            total_time += start.elapsed();
+            total_time += start.elapsed().unwrap();
         }
         self.average_time = total_time / self.repetition as u32;
     }    
@@ -117,13 +114,13 @@ impl DummyArrayVecBenchmark {
         let mut total_time = Duration::new(0, 0);
         let mut _dummy_array_clone: DummyArrayVec;
         let dummy_array: DummyArrayVec = DummyArrayVec::new(self.capacity).unwrap();
-        let mut  start: Instant;
+        let mut  start: SystemTime;
 
         for _ in 0..self.repetition
         {
-            start = Instant::now();
+            start = SystemTime::now();
             _dummy_array_clone = dummy_array.clone();
-            total_time += start.elapsed();
+            total_time += start.elapsed().unwrap();
         }
         self.average_time = total_time / self.repetition as u32;
         
@@ -134,13 +131,13 @@ impl DummyArrayVecBenchmark {
     {
         let mut total_time = Duration::new(0, 0);
         let mut dummy_array: DummyArrayVec = DummyArrayVec::new(0).unwrap();
-        let mut  start: Instant;
+        let mut  start: SystemTime;
 
         for x in 0..self.repetition
         {
-            start = Instant::now();
+            start = SystemTime::now();
             dummy_array.add(x).unwrap();
-            total_time += start.elapsed();  
+            total_time += start.elapsed().unwrap();  
         }
         self.average_time = total_time / self.repetition as u32;
     }

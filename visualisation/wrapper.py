@@ -37,7 +37,7 @@ class Library:
         return self.lib.benchmark_exists(capacity,repetitions)
 
 go_impl = Library(path.expanduser("~/dummy-array/shared_libraries/dummyarray_go.so"))
-rust_impl = Library(path.expanduser("~/shared_libraries/lib_dummyarray_rust.so"))
+rust_impl = Library(path.expanduser("~/dummy-array/shared_libraries/lib_dummyarray_rust.so"))
 
 
 def main():
