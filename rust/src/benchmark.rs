@@ -79,10 +79,7 @@ impl Benchmark for DummyArrayVecBenchmark {
         for _ in 0..self.repetition
         {
             start = SystemTime::now();
-            if dummy_array.remove(value).is_err()
-            {
-                value = rng.gen_range(0..self.capacity as i64) as i64;
-            }
+            dummy_array.remove(value).unwrap_or(false);
             total_time += start.elapsed().unwrap();
         }
         self.average_time = total_time / self.repetition as u32;
