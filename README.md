@@ -32,14 +32,12 @@ Every operation, execpt the initialization, should be process from the indexing 
 ⚠️ The following operations have to be done within a linux environnement. 
 
 If you'd like to try it out for yourself, we've set up a _ready-to-use_ **Qemu** virtual machine for you. You can download it here:<br/>
-*link coming soon*
-
-To import a
-*instructions sur l'import d'une vm qemu*
+https://drive.google.com/drive/folders/1BeF5Shekm3_1Yu0PrnhrARvdkd775yvi?usp=sharing
+Once you downloaded the files, run the command : **`/mnt/netta/apps/nemu-restore ∼/Downloads/dummy-arrays-vm_deb.tgz`**
 
 Once you launched the VVM, use the following infos **to login** : **`login: benchmaker`** and **`passwrd: plop`**.</br>
 Then you can just **run the setup script** by typing the following command : **`bash setup.sh`**.<br/>
-Taadaa, you're **ready to explore **our dummy-array project ! <br/>
+Taadaa, you're **ready to explore** our dummy-array project ! <br/>
 <br/>
 You can run a benchmark within the python virtual environnement in the **`visualization`** directory; or compile and test yourself our 
 dummy-array implementations from the directories **`go`** and **`rust`**.<br/>
