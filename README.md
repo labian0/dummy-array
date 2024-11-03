@@ -48,3 +48,21 @@ dummy-array implementations from the directories **`go`** and **`rust`**.<br/>
 
 ## Benchmark 📊
 We so choose to implement a Dummy-array in Go and Rust, then compared the results between the two languages during the benchmark.
+
+The following graphs show the results of the three methods, **add**, **remove** and **exists**. The Rust implementation is **always faster** than the Go one, exept for the initialization. 
+
+As we can se on the graph below, the Rust implementation is suprisingly slower than the Go one.
+It can be due to the fact that the dummy-array values must be initialized.
+![Benchmark_init](./readme_images/graphs/tc_initialize.png)
+
+As we can see on the graph bellow, the Rust implementation is **way faster** than the Go one. Its **more than 10 times faster**.
+Noting that the complexity is **O(1)** for Rust and **O(n)** for Go.
+![Benchmark_add](./readme_images/graphs/tc_add.png)
+
+As we can see on the graph bellow, the Rust implementation still **way faster** than the Go one. But the complexity is now **O(n)** for both. 
+It can be explain by the fact that after removing a value, the counter must be refreshed.
+![Benchmark_remove](./readme_images/graphs/tc_remove.png)
+
+Same as the add benchmark, the Rust implementation is **way faster** than the Go one. Its **more than 10 times faster**.
+Noting that the complexity is **O(1)** for Rust and **O(n)** for Go.
+![Benchmark_exists](./readme_images/graphs/tc_exists.png)
