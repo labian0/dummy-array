@@ -118,7 +118,18 @@ impl DummyArray for DummyArrayVec {
     /// <ins>NB</ins>: the dummy array is empty if the counter is equal to 0 (no stored value). <br/>
     fn is_empty(&self) -> bool
     {
-        self.counter == 0
+        let mut empty: bool = true;
+        let mut index: usize = 0;
+
+        while index < self.indexing_tab.len() && empty
+        {
+            unsafe 
+            {
+                empty = *self.indexing_tab[index as usize] == self.indexing_tab.len() as i64;
+                index += 1;
+            }
+        }
+        empty
     }
 
     /// Returns true if the dummy array is full, false otherwise. <br/>
@@ -179,9 +190,15 @@ impl DummyArrayVec {
     fn grow(&mut self, new_capacity: usize) -> ()
     {
         let current_capacity: usize = self.indexing_tab.len();
+        let mut values_to_repoint: Vec<i64> = Vec::new();
 
         if !(new_capacity < current_capacity)
         {
+            if current_capacity != 0
+            {
+                values_to_repoint = self.storing_tab.clone();
+            }
+
             let mut index: usize = current_capacity;
             self.indexing_tab.resize_with(new_capacity, 
                 || 
@@ -195,7 +212,7 @@ impl DummyArrayVec {
 
             if current_capacity != 0
             {
-                self.back_on_track(current_capacity, new_capacity);
+                self.back_on_track(current_capacity, new_capacity, values_to_repoint);
             }
         }
         self.refresh_counter();
@@ -203,14 +220,14 @@ impl DummyArrayVec {
 
     /// Reorients the indexing tab pointers on the new address of the storing vec afeter resizing
     /// and updates the writtable slots to the new capacity value. <br/>
-    fn back_on_track(&mut self, old_capacity: usize, new_capacity: usize) -> ()
+    fn back_on_track(&mut self, old_capacity: usize, new_capacity: usize, values_to_repoint: Vec<i64>) -> ()
     {
         for index in 0..old_capacity
         {
             unsafe 
             {
                 // get the value originally pointed by the pointer in the indexing tab
-                let value_to_point: i64 = *self.indexing_tab[index];
+                let value_to_point: i64 = values_to_repoint[index];
                 // get the new location of the value in the storing tab, relocated after resizing
                 let new_location: *mut i64 = ptr::from_ref(&self.storing_tab
                     [{
@@ -222,7 +239,7 @@ impl DummyArrayVec {
                         {
                             index += 1;
                         }
-                        if index < new_capacity {index} else {0}
+                        index
                     }]).cast_mut();
 
                 self.indexing_tab[index] = new_location;

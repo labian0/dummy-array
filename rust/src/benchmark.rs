@@ -70,16 +70,16 @@ impl Benchmark for DummyArrayVecBenchmark {
         let mut total_time = Duration::new(0, 0);
         let mut dummy_array = DummyArrayVec::new(self.capacity).unwrap();
         let mut rng: rand::rngs::ThreadRng = rand::thread_rng();
-        let mut value: i64 = rng.gen_range(0..self.capacity as i64);
+        let mut value: i64 = rng.gen_range(0..self.capacity as i64) as i64;
         let mut start: Instant;
         
         self.populate(&mut dummy_array);
 
         for _ in 0..self.repetition
-        {
-            while !dummy_array.exists(value)
+        {   
+            while !dummy_array.exists(value) 
             {
-                value = rng.gen_range(0..self.capacity as i64);
+                value = rng.gen_range(0..self.capacity as i64) as i64;
             }
             start = Instant::now();
             dummy_array.remove(value).unwrap();
@@ -153,10 +153,10 @@ impl DummyArrayVecBenchmark {
 
         for _ in 0..self.capacity
         {
-            value = rng.gen_range(0..self.capacity as i64);
+            value = rng.gen_range(0..self.capacity as i64) as i64;
             while dummy_array.exists(value)
             {
-                value = rng.gen_range(0..self.capacity as i64);
+                value = rng.gen_range(0..self.capacity as i64) as i64;
             }
             dummy_array.add(value).unwrap();
         }
