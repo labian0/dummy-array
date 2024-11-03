@@ -1,4 +1,5 @@
 import ctypes
+from os import path
 
 #default capacity and repetitions, can be overwritten in benchmark function calls
 CAPACITY = 1000000
@@ -35,8 +36,8 @@ class Library:
         averaged over <repetitions> repetitions"""
         return self.lib.benchmark_exists(capacity,repetitions)
 
-go_impl = Library("../shared_libraries/dummyarray_go.so")
-rust_impl = Library("../shared_libraries/lib_dummyarray_rust.so")
+go_impl = Library(path.expanduser("~/dummy-array/shared_libraries/dummyarray_go.so"))
+rust_impl = Library(path.expanduser("~/shared_libraries/lib_dummyarray_rust.so"))
 
 
 def main():
