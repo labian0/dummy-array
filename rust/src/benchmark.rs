@@ -71,7 +71,7 @@ impl Benchmark for DummyArrayVecBenchmark {
         let mut total_time = Duration::new(0, 0);
         let mut dummy_array = DummyArrayVec::new(self.capacity).unwrap();
         let mut rng: rand::rngs::ThreadRng = rand::thread_rng();
-        let mut value: i64 = rng.gen_range(0..self.capacity as i64) as i64;
+        let value: i64 = rng.gen_range(0..self.capacity as i64) as i64;
         let mut start: SystemTime;
         
         self.populate(&mut dummy_array);
