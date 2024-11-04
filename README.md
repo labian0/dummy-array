@@ -29,13 +29,12 @@ concerned slot_.
 Every operation, execpt the initialization, should be process from the indexing sub data structure, by dereferencing.
 
 ## Download and setup 🚂 
-⚠️ The following operations have to be done within a linux environnement. 
-
-If you'd like to try it out for yourself, we've set up a _ready-to-use_ **Qemu** virtual machine for you. You can download it here:<br/>
+If you'd like to try it out for yourself, we've set up a _ready-to-use_ VirtualBox virtual machine for you. You can download it here:<br/>
 https://drive.google.com/drive/folders/1BeF5Shekm3_1Yu0PrnhrARvdkd775yvi?usp=sharing <br/>
-Once you downloaded the files, run the command : **`/mnt/netta/apps/nemu-restore ∼/Downloads/dummy-arrays-vm_deb.tgz`**
+Then, open VirtualBox and select **`"Import a virtual device..."`** in the **`File`** menu on top-left of the window.<br/>
+Finally, select the file you just downloaded.
 
-Once you launched the VVM, use the following infos **to login** : **`login: benchmaker`** and **`passwrd: plop`**.</br>
+Once you launched the VM, use the following infos **to login** : **`login: benchmaker`** and **`passwrd: plop`**.</br>
 Then you can just **run the setup script** by typing the following command : **`bash setup.sh`**.<br/>
 Taadaa, you're **ready to explore** our dummy-array project ! <br/>
 <br/>
@@ -50,17 +49,21 @@ We so choose to implement a Dummy-array in Go and Rust, then compared the result
 The following graphs show the results of the three methods, **add**, **remove** and **exists**. The Rust implementation is **always faster** than the Go one, exept for the initialization. 
 
 As we can se on the graph below, the Rust implementation is suprisingly slower than the Go one.
-It can be due to the fact that the dummy-array values must be initialized.
+It can be due to the fact that the dummy-array values must be initialized.<br/>
+<br/>
 ![Benchmark_init](./readme_images/graphs/tc_initialize.png)
 
 As we can see on the graph bellow, the Rust implementation is **way faster** than the Go one. Its **more than 10 times faster**.
-Noting that the complexity is **O(1)** for Rust and **O(n)** for Go.
+Noting that the complexity is **O(1)** for Rust and **O(n)** for Go.<br/>
+<br/>
 ![Benchmark_add](./readme_images/graphs/tc_add.png)
 
 As we can see on the graph bellow, the Rust implementation still **way faster** than the Go one. But the complexity is now **O(n)** for both. 
-It can be explain by the fact that after removing a value, the counter must be refreshed.
+It can be explain by the fact that after removing a value, the counter must be refreshed.<br/>
+<br/>
 ![Benchmark_remove](./readme_images/graphs/tc_remove.png)
 
 Same as the add benchmark, the Rust implementation is **way faster** than the Go one. Its **more than 10 times faster**.
-Noting that the complexity is **O(1)** for Rust and **O(n)** for Go.
+Noting that the complexity is **O(1)** for Rust and **O(n)** for Go.<br/>
+<br/>
 ![Benchmark_exists](./readme_images/graphs/tc_exists.png)
