@@ -21,7 +21,7 @@ plt.title('Temps (ms) d\'initialisation d\'un DummyArray de capacité n')
 plt.legend()
 
 # Show the plot
-plt.savefig("dummy-array/visualisation/graphs/tc_initialize.png")
+plt.savefig("visualisation/graphs/tc_initialize.png")
 
 plt.clf()
 
@@ -38,7 +38,7 @@ plt.title('Temps (ms) d\'ajout de 1 valeur pour un DummyArray de capacité n')
 plt.legend()
 
 # Show the plot
-plt.savefig("dummy-array/visualisation/graphs/tc_add.png")
+plt.savefig("visualisation/graphs/tc_add.png")
 
 plt.clf()
 
@@ -55,7 +55,7 @@ plt.title('Temps (ms) de suppression de 1 valeur d\'un DummyArray de capacité n
 plt.legend()
 
 # Show the plot
-plt.savefig("dummy-array/visualisation/graphs/tc_remove.png")
+plt.savefig("visualisation/graphs/tc_remove.png")
 
 plt.clf()
 
@@ -72,7 +72,7 @@ plt.title('Temps (ms) de vérification d\'existence de 1 valeur d\'un DummyArray
 plt.legend()
 
 # Show the plot
-plt.savefig("dummy-array/visualisation/graphs/tc_exists.png")
+plt.savefig("visualisation/graphs/tc_exists.png")
 
 plt.clf()
 
