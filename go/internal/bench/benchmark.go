@@ -23,7 +23,6 @@ func BenchmarkInitialize(capacity, repetitions uint) int64 {
 func BenchmarkAdd(capacity, repetitions uint) int64 {
 	timer := timer.Timer{}
 	var i uint
-	var j uint
 	var timespanSum int64 = 0
 	da := dummyarray.NewDummyArrayBetter(capacity)
 	for i = 0; i < repetitions; i++ {
@@ -38,7 +37,6 @@ func BenchmarkAdd(capacity, repetitions uint) int64 {
 func BenchmarkRemove(capacity, repetitions uint) int64 {
 	timer := timer.Timer{}
 	var i uint
-	var j uint
 	var timespanSum int64 = 0
 	da := dummyarray.NewDummyArrayBetter(capacity)
 	// remplissage du dummy array
@@ -57,7 +55,6 @@ func BenchmarkRemove(capacity, repetitions uint) int64 {
 func BenchmarkExists(capacity, repetitions uint) int64 {
 	timer := timer.Timer{}
 	var i uint
-	var j uint
 	var timespanSum int64 = 0
 	da := dummyarray.NewDummyArrayBetter(capacity)
 	// remplissage partiel du dummy array
@@ -66,7 +63,7 @@ func BenchmarkExists(capacity, repetitions uint) int64 {
 	}
 	for i = 0; i < repetitions; i++ {
 		timer.Start()
-		da.Exists(j)
+		da.Exists(i)
 		timer.End()
 		timespanSum += timer.GetTimespanNS()
 	}
