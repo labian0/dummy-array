@@ -53,7 +53,7 @@ It can be due to the fact that the dummy-array values must be initialized.<br/>
 <br/>
 ![Benchmark_init](./readme_images/graphs/tc_initialize.png)
 
-As we can see on the graph bellow, the Rust implementation is **way faster** than the Go one. Its **more than 10 times faster**.
+As we can see on the graph bellow, the Rust implementation is **way faster** than the Go one. Its **more than 10 times faster**.<br/>
 Noting that the complexity is **O(1)** for Rust and **O(n)** for Go.<br/>
 <br/>
 ![Benchmark_add](./readme_images/graphs/tc_add.png)
@@ -63,7 +63,7 @@ It can be explain by the fact that after removing a value, the counter must be r
 <br/>
 ![Benchmark_remove](./readme_images/graphs/tc_remove.png)
 
-Same as the add benchmark, the Rust implementation is **way faster** than the Go one. Its **more than 10 times faster**.
-Noting that the complexity is **O(1)** for Rust and **O(n)** for Go.<br/>
+Same as the add benchmark, the Rust implementation is **way faster** than the Go one.<br/>
+The complexity still is **O(1)** for Rust and **O(n)** for Go.<br/>
 <br/>
 ![Benchmark_exists](./readme_images/graphs/tc_exists.png)
