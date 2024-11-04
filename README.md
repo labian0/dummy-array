@@ -4,66 +4,66 @@ exit# Dummy arrays
 ![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white)
 ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
 
+## Conception générale et mise en œuvre 📑
+Ce petit projet a pour but d'implémenter _une structure de données associative_, appelée Dummy-array.<br/>
+Celle-ci devrait s'organiser autour de trois entités, comme suit :
+- une sous-structure _pour l'indexage_.
+- une autre _pour le stockage des valeurs_.
+- et un compteur _pour garder une trace du prochain indice sur lequel écrire_.
 
-## General conception and implementation 📑
-This little project aims to implement _an associative data structure_, called Dummy-array.<br/>
-It would works around three entities, as follows :
-- one sub data structure _for indexing_.
-- another _to store values_.
-- and a counter _to keep track of the next index to write onto_.
+L'idée est d'accéder uniquement à la première sous-structure, contenant **des pointeurs vers l'autre** où les valeurs sont stockées.
+Les deux sous-structures ont la même longueur, et **les index de la première** définissent la valeur à laquelle le pointeur relatif
+est **censé pointer**. En d'autres termes, la **longueur-1 du dummy-array correspond à la valeur maximale** qu'elle peut stocker (de
+0 à longueur-1).
 
-The idea is to _access only the first sub data structure_, containing **pointers to the other one** where the values are stored.
-Both sub data structures have the same lenght, and **the indexes of the first one** define the value the relative pointer
-is **expected to point to**. In other words, the **lenght-1 of the dummy-array corresponds to the maximum value** it can store (from
-0 to lenght-1).
+Cette structure de données doit implémenter trois méthodes :
+- **`exists(int value)`** -> retourne True si la valeur donnée est déjà stockée ; sinon False.
+- **`add(int value)`** -> si la valeur donnée n'est pas déjà stockée, l'insérer et retourner True ; sinon retourner False.
+- **`remove(int value)`** -> si la valeur donnée est déjà stockée, la supprimer et retourner True ; sinon retourner False.
 
-This data structure must implements three methods :
-- **`exists(int value)`** -> return True if the given value is already stored; else False.
-- **`add(int value)`** -> if the given values is not already stored, insert it and return True; else return False.
-- **`remove(int value)`** -> if the given value is already stored, delete it and return True; else return False.
+Par exemple, si le pointeur à _l'index 3 ne pointe pas vers un emplacement contenant 3_, **cela signifie que la valeur n'est pas stockée** dans le dummy-array.
+Pour marquer un emplacement comme _écrivable dans la sous-structure de stockage_, il est **rempli avec la longueur du dummy-array**. Donc, si nous voulons
+ajouter une valeur, nous devons donc rechercher _le premier emplacement marqué ainsi_. Et supprimer une valeur est aussi simple que _d'écrire la longueur dans
+l'emplacement concerné_.
+Toute opération, sauf l'initialisation, doit être traitée à partir de la sous-structure d'indexation, par déréférencement.
 
-For example, if the pointer at _index 3 does not point to a slot containing 3_, **it means the value isn't stored** in the dummy-array.
-To mark a slot as _writtable in the storing sub data structure_, it is **field with the lenght of the dummy-array**. So if we want to 
-add a value we therefore need to search for _the first slot marked thus_. And remove a value is as simple as _write the lenght in the 
-concerned slot_.
-Every operation, execpt the initialization, should be process from the indexing sub data structure, by dereferencing.
-
-## Download and setup 🚂 
-If you'd like to try it out for yourself, we've set up a _ready-to-use_ VirtualBox virtual machine for you. You can download it here:<br/>
+## Téléchargement et configuration 🚂
+Si vous souhaitez l'essayer par vous-même, nous avons configuré une machine virtuelle VirtualBox prête à l'emploi pour vous. Vous pouvez la télécharger ici :<br/>
 https://drive.google.com/drive/folders/1BeF5Shekm3_1Yu0PrnhrARvdkd775yvi?usp=sharing <br/>
-Then, open VirtualBox and select **`"Import a virtual device..."`** in the **`File`** menu on top-left of the window.<br/>
-Finally, select the file you just downloaded.
+Ensuite, ouvrez VirtualBox et sélectionnez **`"Importer un appareil virtuel..."`** dans le menu **`Fichier`** en haut à gauche de la fenêtre.<br/>
+Enfin, sélectionnez le fichier que vous venez de télécharger.
 
-Once you launched the VM, use the following infos **to login** : **`login: benchmaker`** and **`passwrd: plop`**.</br>
-Then you can just **run the setup script** by typing the following command : **`bash setup.sh`**.<br/>
-Taadaa, you're **ready to explore** our dummy-array project ! <br/>
+Une fois que vous avez lancé la VM, utilisez les informations suivantes **pour vous connecter** : **`login: benchmaker`** et **`passwrd: plop`**.</br>
+Ensuite, vous pouvez simplement **exécuter le script de configuration** en tapant la commande suivante : **`bash setup.sh`**.<br/>
+Tadaa, vous êtes **prêt à explorer** notre projet dummy-array ! <br/>
 <br/>
-You can run a benchmark within the python virtual environnement in the **`visualization`** directory; or compile and test yourself our 
-dummy-array implementations from the directories **`go`** and **`rust`**.<br/>
+Vous pouvez exécuter un benchmark dans l'environnement virtuel Python dans le répertoire **`visualization`** et visualiser les résultats dans le répértoire **`graph`**; ou compiler et tester vous-même nos
+implémentations de dummy-array à partir des répertoires **`go`** et **`rust`**.<br/>
 <br/>
-<ins>NB</ins>: to compile one or the other, you can use the respectives building scripts in the **`scripts`** directory.
+<ins>NB</ins>: pour compiler l'un ou l'autre, vous pouvez utiliser les scripts de construction respectifs dans le répertoire **`scripts`**.
 
 ## Benchmark 📊
-We so choose to implement a Dummy-array in Go and Rust, then compared the results between the two languages during the benchmark.
+Nous avons choisi d'implémenter un Dummy-array en Go et Rust, puis de comparer les résultats entre les deux langages lors du benchmark.
+Les graphiques suivants montrent les résultats des trois méthodes, **add**, **remove** et **exists**.
 
-The following graphs show the results of the three methods, **add**, **remove** and **exists**. The Rust implementation is **always faster** than the Go one, exept for the initialization. 
-
-As we can se on the graph below, the Rust implementation is suprisingly slower than the Go one.<br/>
-It can be due to the fact that the dummy-array values must be initialized.<br/>
+Comme nous pouvons le voir sur le graphique ci-dessous, l'implémentation en Rust est plus lente que celle en Go lorsqu'il s'agit d'initialiser un dummy-array.<br/>
+Cela peut être dû au fait que les valeurs du dummy-array doivent être obligatoirement initialisées en Rust.<br/>
 <br/>
 ![Benchmark_init](./readme_images/graphs/tc_initialize.png)
 
-As we can see on the graph bellow, the Rust implementation is **way faster** than the Go one. Its **more than 10 times faster**.<br/>
-Noting that the complexity is **O(1)** for Rust and **O(n)** for Go.<br/>
+Concernant l'ajout d'une valeur les deux implémentations semble donner des résultats plus ou moins similaires, à quelques nanosecondes près,<br/>
+avec tout de même une légère ascendance pour Go. <br/>
+A noter que la complexité de cette opération reste O(1). <br/>
 <br/>
 ![Benchmark_add](./readme_images/graphs/tc_add.png)
 
-As we can see on the graph bellow, the Rust implementation still **way faster** than the Go one. But the complexity is now **O(n)** for both.<br/>
-It can be explain by the fact that after removing a value, the counter must be refreshed.<br/>
+Comme nous pouvons le voir sur le graphique ci-dessous, les résultats pour la suppression d'un élément sont relativement les même que pour l'ajout. <br/>
+Bien que dans ce cas on observe une légère ascendance pour Rust plutôt que Go. <br/>
+La complexité de cette opération est également O(1). <br/>
 <br/>
 ![Benchmark_remove](./readme_images/graphs/tc_remove.png)
 
-Same as the add benchmark, the Rust implementation is **way faster** than the Go one.<br/>
-The complexity still is **O(1)** for Rust and **O(n)** for Go.<br/>
+Enfin, pour ce qui est de la recherche d'un élément, l'implémentation en Go semble un peu plus rapide. <br/>
+La complexité de cette opération est O(n). <br/>
 <br/>
 ![Benchmark_exists](./readme_images/graphs/tc_exists.png)
