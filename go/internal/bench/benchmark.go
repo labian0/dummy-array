@@ -28,9 +28,7 @@ func BenchmarkAdd(capacity, repetitions uint) int64 {
 	da := dummyarray.NewDummyArrayBetter(capacity)
 	for i = 0; i < repetitions; i++ {
 		timer.Start()
-		for j = 0; j < capacity; j++ {
-			da.Add(uint(time.Now().Nanosecond()) % capacity)
-		}
+		da.Add(uint(time.Now().Nanosecond()) % capacity)
 		timer.End()
 		timespanSum += timer.GetTimespanNS()
 	}
@@ -49,9 +47,7 @@ func BenchmarkRemove(capacity, repetitions uint) int64 {
 	}
 	for i = 0; i < repetitions; i++ {
 		timer.Start()
-		for j = 0; j < capacity; j++ {
-			da.Remove(uint(time.Now().Nanosecond()) % capacity)
-		}
+		da.Remove(uint(time.Now().Nanosecond()) % capacity)
 		timer.End()
 		timespanSum += timer.GetTimespanNS()
 	}
@@ -70,9 +66,7 @@ func BenchmarkExists(capacity, repetitions uint) int64 {
 	}
 	for i = 0; i < repetitions; i++ {
 		timer.Start()
-		for j = 0; j < capacity; j++ {
-			da.Exists(j)
-		}
+		da.Exists(j)
 		timer.End()
 		timespanSum += timer.GetTimespanNS()
 	}
