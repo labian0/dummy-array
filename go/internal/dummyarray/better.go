@@ -32,8 +32,8 @@ func (da *DummyArrayBetter) Remove(value uint) bool {
 		return false
 	}
 	da.set[value] = (da.set[value] + 1) % da.capacity // value index in the values slice
-	da.values[da.set[value]] = da.values[counter-1]
-	counter--
+	da.values[da.set[value]] = da.values[da.counter-1]
+	da.counter--
 	return true
 }
 
