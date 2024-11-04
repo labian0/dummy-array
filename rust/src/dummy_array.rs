@@ -37,8 +37,6 @@ impl DummyArray for DummyArrayVec {
     /// Returns true if the value was added, false otherwise. <br/>
     fn add(&mut self, value: i64) -> Result<bool, &str> 
     {
-        self.refresh_counter();
-
         if self.exists(value)
         {
             return Err("Value already exists. ");
@@ -50,12 +48,12 @@ impl DummyArray for DummyArrayVec {
         else if value >= self.indexing_tab.len() as i64
         {
             self.grow((value+1) as usize);
-            self.refresh_counter();
         }
         else if self.is_full()
         {
             return Err("The dummy array is full. ");
         }
+        self.refresh_counter();
         self.indexing_tab[value as usize] = ptr::from_ref(&self.storing_tab[self.counter as usize]).cast_mut();
         unsafe 
         {
@@ -69,8 +67,6 @@ impl DummyArray for DummyArrayVec {
     /// Returns true if the value was removed, false otherwise. <br/>
     fn remove(&mut self, value: i64) -> Result<bool, &str> 
     {
-        self.refresh_counter();
-
         if !self.exists(value) 
         {
             return Err("Value not found. ");
@@ -192,7 +188,6 @@ impl DummyArrayVec {
                 self.back_on_track(current_capacity, new_capacity, values_to_repoint);
             }
         }
-        self.refresh_counter();
     }
 
     /// Reorients the indexing tab pointers on the new address of the storing vec afeter resizing
