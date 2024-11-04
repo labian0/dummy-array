@@ -34,7 +34,7 @@ plt.plot(capacities, valuesRust, label='Rust', color='orange')
 
 plt.xticks(capacities, benchmarks)
 plt.ylabel('Temps (ms)')
-plt.title('Temps (ms) d\'ajout de n valeurs pour un DummyArray de capacité n')
+plt.title('Temps (ms) d\'ajout de 1 valeur pour un DummyArray de capacité n')
 plt.legend()
 
 # Show the plot
@@ -51,7 +51,7 @@ plt.plot(capacities, valuesRust, label='Rust', color='orange')
 
 plt.xticks(capacities, benchmarks)
 plt.ylabel('Temps (ms)')
-plt.title('Temps (ms) de suppression de n valeurs pour un DummyArray de capacité n')
+plt.title('Temps (ms) de suppression de 1 valeur d\'un DummyArray de capacité n')
 plt.legend()
 
 # Show the plot
@@ -68,7 +68,7 @@ plt.plot(capacities, valuesRust, label='Rust', color='orange')
 
 plt.xticks(capacities, benchmarks)
 plt.ylabel('Temps (ms)')
-plt.title('Temps (ms) de vérification de l\'existence de n valeurs pour un DummyArray de capacité n')
+plt.title('Temps (ms) de vérification d\'existence de 1 valeur d\'un DummyArray de capacité n')
 plt.legend()
 
 # Show the plot
